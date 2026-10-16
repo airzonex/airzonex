@@ -2,47 +2,45 @@
 
 **Data Engineer | 17+ years in software and database development**
 
-I'm transitioning from senior Oracle and Delphi development to Data Engineering, building on extensive experience with SQL, PL/SQL, business logic, and system integration.
+I build end-to-end Data Engineering projects focused on data pipelines, DWH, CDC, and analytical data modeling.
 
-I build personal projects focused on batch ingestion, change data capture, data warehouses, and analytical data modeling. My focus is on reliable pipelines, reproducible environments, and clear documentation.
+My background includes Oracle, SQL, PL/SQL, enterprise application development, business logic, and system integration. I now apply this experience to modern data platforms using Python, PostgreSQL, Airflow, dbt, Kafka, and related technologies.
 
 ## Projects
 
 ### [Financial Data Platform](https://github.com/airzonex/financial-data-platform)
 
-An end-to-end batch pipeline for analyzing the relationship between the Bank of Russia key rate and the MOEX RGBI government bond index.
+An end-to-end batch data pipeline for analyzing the relationship between the Bank of Russia key rate and the MOEX RGBI government bond index.
 
-- Ingests data from the MOEX API and the Bank of Russia website.
-- Stores original responses in MinIO and loads source data into PostgreSQL.
-- Uses dbt for SQL transformations, type conversion, date gap filling, and an analytical mart.
-- Orchestrates workflows with Airflow and tracks incremental ingestion through run metadata.
-- Runs in Docker Compose for a reproducible local setup.
+- Ingests financial data from external sources and stores original responses in MinIO.
+- Uses PostgreSQL and dbt for staging, intermediate transformations, and analytical marts.
+- Orchestrates ingestion and transformations with Apache Airflow.
+- Supports incremental processing, ingestion metadata, and idempotent loading.
+- Includes automated unit, integration, and end-to-end tests with CI in GitHub Actions.
 
-**Stack:** Python, PostgreSQL, Airflow, dbt, MinIO / S3, Docker.
+**Stack:** Python, PostgreSQL, Apache Airflow, dbt, MinIO / S3, Docker Compose, pytest, GitHub Actions.
 
-### [E-commerce Data Platform — in progress](https://github.com/airzonex/ecommerce-data-platform)
+### [E-commerce Data Platform](https://github.com/airzonex/ecommerce-data-platform)
 
-A CDC-based pipeline that captures changes from an e-commerce PostgreSQL database and ingests them into a warehouse event log.
+An end-to-end CDC data platform that captures changes from a PostgreSQL OLTP system and transforms them into analytical dimensions and fact tables.
 
-**Current pipeline:** PostgreSQL OLTP → Debezium → Kafka → Python consumer → PostgreSQL DWH.
+**Pipeline:** PostgreSQL OLTP → Debezium / Kafka → Python ingestion → PostgreSQL DWH → dbt
 
-- Models customers, products, orders, order items, and payments in the source database.
-- Parses CDC events, including deletes and Kafka tombstones.
-- Uses an idempotent event log keyed by Kafka topic, partition, and offset.
-- Commits Kafka offsets after the database transaction succeeds.
-- Includes parser unit tests and scripts for checking CDC and end-to-end ingestion.
+- Captures changes from customers, products, orders, order items, and payments using PostgreSQL logical replication and Debezium.
+- Implements Kafka-to-DWH ingestion with manual offset management, at-least-once processing, idempotent writes, and replay-safe duplicate handling.
+- Stores CDC events in an append-only raw layer with source and Kafka metadata.
+- Uses dbt to reconstruct current entity state, handle hard deletes, and build SCD Type 2 dimensions and fact tables.
+- Includes unit, integration, CDC streaming, replay/idempotency, and end-to-end pipeline validation.
 
-**Next steps:** warehouse models, dbt transformations, and customer/order data marts. A ClickHouse real-time analytics branch is planned.
+**Stack:** Python, PostgreSQL, Apache Kafka, Kafka Connect, Debezium, dbt, Docker Compose, pytest.
 
-**Stack:** Python, PostgreSQL, Debezium, Kafka, Docker, pytest.
-
-## Technical background
+## Technical Background
 
 | Area | Technologies |
 | --- | --- |
-| Data pipelines | Python, SQL, Airflow, dbt, REST APIs |
-| Databases and analytics | PostgreSQL, Oracle / PL/SQL, ClickHouse |
-| CDC and streaming | Kafka, Debezium |
+| Data pipelines | Python, SQL, Apache Airflow, dbt, REST APIs |
+| Databases and DWH | PostgreSQL, Oracle / PL/SQL, ClickHouse |
+| CDC and streaming | Apache Kafka, Kafka Connect, Debezium |
 | Storage and development | MinIO / S3, Docker Compose, Git, Linux |
 | Additional hands-on practice | Apache Spark, Apache NiFi, HDFS |
 
